@@ -1,3 +1,4 @@
+import Card from "./components/Card";
 import { useFetchRepositories } from "./hooks/useRepos";
 
 function App() {
@@ -7,10 +8,8 @@ function App() {
 
   return (
     <div>
-      {data?.map((repo) => (
-        <div>
-          <h1>{repo.name}</h1>
-        </div>
+      {data?.map((repository) => (
+        <Card key={repository.id} repository={repository} />
       ))}
     </div>
   );
