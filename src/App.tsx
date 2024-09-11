@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useFetchRepositories } from "./hooks/useRepos";
 
 function App() {
@@ -7,7 +5,15 @@ function App() {
   if (isLoading) return <div>Loading...</div>;
   console.log(data);
 
-  return <div>Hello world</div>;
+  return (
+    <div>
+      {data?.map((repo) => (
+        <div>
+          <h1>{repo.name}</h1>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default App;
