@@ -1,17 +1,36 @@
 import { Repository } from "../hooks/types";
+import { useFavoriteReposStore } from "../store/favoriteRepos";
 
 type CardProps = {
   repository: Repository;
+  isFavorite: boolean;
 };
 
 function Card(props: CardProps) {
-  const { repository } = props;
+  const { repository, isFavorite } = props;
+
+  const addFavoriteRepo = useFavoriteReposStore(
+    (state) => state.addFavoriteRepo
+  );
+  const removeFavoriteRepo = useFavoriteReposStore(
+    (state) => state.removeFavoriteRepo
+  );
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFavoriteRepo(repository.id);
+      return;
+    }
+    addFavoriteRepo(repository.id);
+  };
 
   return (
     <div>
       <div>
         <h1>{repository.name}</h1>
-        <button>Like</button>
+        <button onClick={toggleFavorite}>
+          {isFavorite ? "Dislike" : "Like"}
+        </button>
       </div>
     </div>
   );
